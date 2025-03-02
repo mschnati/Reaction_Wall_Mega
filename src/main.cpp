@@ -36,6 +36,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 void setup() {
     // Initialize I2C communication with specified SDA and SCL pins
     // Initialize the display
+  Wire.begin();
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
     Serial.println(F("SSD1306 allocation failed"));
     for (;;); // Don't proceed, loop forever
