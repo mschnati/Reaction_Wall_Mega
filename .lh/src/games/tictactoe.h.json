@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/games/tictactoe.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1740906845865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740906851880,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,26 @@\n+#ifndef TICTACTOE_H\r\n+#define TICTACTOE_H\r\n+\r\n+#include \"globals.h\"\r\n+#include <stdbool.h>\r\n+\r\n+typedef struct {\r\n+    int board[3][3];  // 0=empty, 1=X, 2=O\r\n+    int currentPlayer; // 1=X, 2=O\r\n+    bool isActive;\r\n+    int selectedX;\r\n+    int selectedY;\r\n+    unsigned long lastUpdate;\r\n+    struct {\r\n+        int positions[3];  // Store square numbers of winning line\r\n+        bool hasWinner;\r\n+    } winner;\r\n+} TicTacToeState;\r\n+\r\n+\r\n+void tictactoe_init(TicTacToeState* state);\r\n+void tictactoe_start(TicTacToeState* state);\r\n+void tictactoe_update(TicTacToeState* state);\r\n+bool tictactoe_is_running(TicTacToeState* state);\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740907003694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,8 @@\n typedef struct {\r\n     int board[3][3];  // 0=empty, 1=X, 2=O\r\n     int currentPlayer; // 1=X, 2=O\r\n     bool isActive;\r\n-    int selectedX;\r\n-    int selectedY;\r\n     unsigned long lastUpdate;\r\n     struct {\r\n         int positions[3];  // Store square numbers of winning line\r\n         bool hasWinner;\r\n@@ -22,42 +20,5 @@\n void tictactoe_start(TicTacToeState* state);\r\n void tictactoe_update(TicTacToeState* state);\r\n bool tictactoe_is_running(TicTacToeState* state);\r\n \r\n-#endif\n-#ifndef TICTACTOE_H\r\n-#define TICTACTOE_H\r\n-\r\n-#include \"globals.h\"\r\n-#include <stdbool.h>\r\n-\r\n-typedef struct {\r\n-    int board[3][3];  // 0=empty, 1=X, 2=O\r\n-    int currentPlayer; // 1=X, 2=O\r\n-    bool isActive;\r\n-    int selectedX;\r\n-    int selectedY;\r\n-    unsigned long lastUpdate;\r\n-    struct {\r\n-        int positions[3];  // Store square numbers of winning line\r\n-        bool hasWinner;\r\n-    } winner;\r\n-} TicTacToeState;\r\n-\r\n-const uint8_t XO_PATTERNS[2][4][4] = {\r\n-\r\n-\r\n-// Square bottom left corner coordinates for X and O\r\n-const int SQUARES[9][2] = {\r\n-    {1,1}, {1,6}, {1,11},\r\n-    {6,1}, {6,6}, {6,11},\r\n-    {11,1}, {11,6}, {11,11}\r\n-};\r\n-\r\n-\r\n-\r\n-void tictactoe_init(TicTacToeState* state);\r\n-void tictactoe_start(TicTacToeState* state);\r\n-void tictactoe_update(TicTacToeState* state);\r\n-bool tictactoe_is_running(TicTacToeState* state);\r\n-\r\n #endif\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1740906845865,
+            "name": "Commit-0",
+            "content": "#ifndef TICTACTOE_H\r\n#define TICTACTOE_H\r\n\r\n#include \"globals.h\"\r\n#include <stdbool.h>\r\n\r\ntypedef struct {\r\n    int board[3][3];  // 0=empty, 1=X, 2=O\r\n    int currentPlayer; // 1=X, 2=O\r\n    bool isActive;\r\n    int selectedX;\r\n    int selectedY;\r\n    unsigned long lastUpdate;\r\n    struct {\r\n        int positions[3];  // Store square numbers of winning line\r\n        bool hasWinner;\r\n    } winner;\r\n} TicTacToeState;\r\n\r\nconst uint8_t XO_PATTERNS[2][4][4] = {\r\n\r\n\r\n// Square bottom left corner coordinates for X and O\r\nconst int SQUARES[9][2] = {\r\n    {1,1}, {1,6}, {1,11},\r\n    {6,1}, {6,6}, {6,11},\r\n    {11,1}, {11,6}, {11,11}\r\n};\r\n\r\n\r\n\r\nvoid tictactoe_init(TicTacToeState* state);\r\nvoid tictactoe_start(TicTacToeState* state);\r\nvoid tictactoe_update(TicTacToeState* state);\r\nbool tictactoe_is_running(TicTacToeState* state);\r\n\r\n#endif"
+        }
+    ]
+}

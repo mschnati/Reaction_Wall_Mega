@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/config.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1740907983449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1740907983449,
+            "name": "Commit-0",
+            "content": "#ifndef DEFINES_H\r\n#define DEFINES_H\r\n\r\n// comment out the following lines for code that isnt used\r\n#define SNAKE_GAME\r\n#define RAINBOW_SNAKE\r\n// #define PULSE\r\n#define REACTION_GAME\r\n#define TICTACTOE_GAME\r\n#define CONNECT_FOUR\r\n#define TEST\r\n\r\n#endif"
+        }
+    ]
+}

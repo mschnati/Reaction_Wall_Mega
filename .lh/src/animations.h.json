@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/animations.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1740904815213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740905072634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n void pulse_animation(int centerX, int centerY, CRGB color);\r\n void randomBlock();\r\n void idle_animation();\r\n void wave_ripple_animation();\r\n-void rainbowBorder ();\r\n+void rainbowBorder(int numButtons, int buttons[]);\r\n \r\n const unsigned char FHMS_LOGO [] PROGMEM = {\r\n \t0xfe, 0x7f, 0xfc, 0x7f, 0xfa, 0x9f, 0xf1, 0x0f, 0xe2, 0x17, 0xc4, 0x23, 0x88, 0x45, 0x10, 0x89, \r\n \t0x31, 0x11, 0xca, 0x21, 0xc6, 0x43, 0xe2, 0x87, 0xf1, 0x8f, 0xf8, 0x9f, 0xfc, 0x7f, 0xfe, 0xff\r\n"
+                },
+                {
+                    "date": 1740905524235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n void pulse_animation(int centerX, int centerY, CRGB color);\r\n void randomBlock();\r\n void idle_animation();\r\n void wave_ripple_animation();\r\n-void rainbowBorder(int numButtons, int** buttons[]);\r\n+void rainbowBorder(int numButtons, int** buttons);\r\n \r\n const unsigned char FHMS_LOGO [] PROGMEM = {\r\n \t0xfe, 0x7f, 0xfc, 0x7f, 0xfa, 0x9f, 0xf1, 0x0f, 0xe2, 0x17, 0xc4, 0x23, 0x88, 0x45, 0x10, 0x89, \r\n \t0x31, 0x11, 0xca, 0x21, 0xc6, 0x43, 0xe2, 0x87, 0xf1, 0x8f, 0xf8, 0x9f, 0xfc, 0x7f, 0xfe, 0xff\r\n"
+                }
+            ],
+            "date": 1740904815213,
+            "name": "Commit-0",
+            "content": "#ifndef ANIMATIONS_H\r\n#define ANIMATIONS_H\r\n#include \"globals.h\"\r\n\r\n#ifdef RAINBOW_SNAKE\r\ntypedef struct {\r\n    int x;\r\n    int y;\r\n    int dx;\r\n    int dy;\r\n    int snakeLength;\r\n    int path[256][2];\r\n    int pathIndex;\r\n    int foodX;\r\n    int foodY;\r\n    unsigned long lastFoodTime;\r\n    unsigned long lastUpdate;\r\n    bool isActive;\r\n    bool wrapAround;\r\n} SnakeState;\r\n\r\nvoid snake_animation_init(SnakeState* state, bool wrapAround);\r\nvoid snake_update(SnakeState* state);\r\nvoid rainbow_snake(bool wrapAround);\r\nvoid spawnFood();\r\n#endif\r\n\r\nvoid rainbow_snake_old();\r\nvoid pulse_animation(int centerX, int centerY, CRGB color);\r\nvoid randomBlock();\r\nvoid display_logo();\r\nvoid idle_animation();\r\nvoid wave_ripple_animation();\r\nvoid rainbowBorder ()\r\n\r\nconst unsigned char FHMS_LOGO [] PROGMEM = {\r\n\t0xfe, 0x7f, 0xfc, 0x7f, 0xfa, 0x9f, 0xf1, 0x0f, 0xe2, 0x17, 0xc4, 0x23, 0x88, 0x45, 0x10, 0x89, \r\n\t0x31, 0x11, 0xca, 0x21, 0xc6, 0x43, 0xe2, 0x87, 0xf1, 0x8f, 0xf8, 0x9f, 0xfc, 0x7f, 0xfe, 0xff\r\n};\r\n\r\n#endif"
+        }
+    ]
+}

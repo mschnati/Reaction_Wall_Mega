@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/games/reactiongame.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1740859680092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1740859680092,
+            "name": "Commit-0",
+            "content": "#ifndef REACTIONGAME_H\r\n#define REACTIONGAME_H\r\n\r\n#include \"globals.h\"\r\n#include <stdbool.h>\r\n\r\ntypedef struct {\r\n    int score;\r\n    unsigned long gameStartTime;\r\n    int active\r\n    bool isGameActive;\r\n    unsigned long gameEndTime; // Time when the game ended\r\n} ReactionGameState;\r\n\r\n// Function prototypes\r\nvoid reaction_game_init(ReactionGameState* state);\r\nvoid reaction_game_start(ReactionGameState* state);\r\nvoid reaction_game_update(ReactionGameState* state);\r\nbool reaction_game_is_running(ReactionGameState* state);\r\nint reaction_game_get_score(ReactionGameState* state);\r\nvoid reaction_game_set_new_block(ReactionGameState* state);\r\n\r\n\r\n#endif"
+        }
+    ]
+}

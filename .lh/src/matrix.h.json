@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/matrix.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1740852013609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740854762362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #ifndef MATRIX_H\r\n #define MATRIX_H\r\n #include \"globals.h\"\r\n \r\n-void ledsToMatrix();\r\n+void buttonsToMatrix();\r\n void setButtonColor(int x, int y, CRGB color);\r\n void display_digit(int digit, int xOffset, int yOffset, CRGB color);\r\n void display_score(int score, CRGB color);\r\n \r\n"
+                },
+                {
+                    "date": 1740856228294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n #include \"globals.h\"\r\n \r\n void buttonsToMatrix();\r\n void setButtonColor(int x, int y, CRGB color);\r\n-void display_digit(int digit, int xOffset, int yOffset, CRGB color);\r\n void display_score(int score, CRGB color);\r\n \r\n const uint8_t DIGIT_PATTERNS[10][5][3] = {\r\n     { // 0\r\n"
+                },
+                {
+                    "date": 1740856310380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,78 +5,6 @@\n void buttonsToMatrix();\r\n void setButtonColor(int x, int y, CRGB color);\r\n void display_score(int score, CRGB color);\r\n \r\n-const uint8_t DIGIT_PATTERNS[10][5][3] = {\r\n-    { // 0\r\n-        {1,1,1},\r\n-        {1,0,1},\r\n-        {1,0,1},\r\n-        {1,0,1},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 1\r\n-        {0,0,1},\r\n-        {0,0,1},\r\n-        {0,0,1},\r\n-        {0,0,1},\r\n-        {0,0,1}\r\n-    },\r\n-    { // 2\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {1,1,1},\r\n-        {1,0,0},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 3\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 4\r\n-        {1,0,1},\r\n-        {1,0,1},\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {0,0,1}\r\n-    },\r\n-    { // 5\r\n-        {1,1,1},\r\n-        {1,0,0},\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 6\r\n-        {1,1,1},\r\n-        {1,0,0},\r\n-        {1,1,1},\r\n-        {1,0,1},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 7\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {0,0,1},\r\n-        {0,0,1},\r\n-        {0,0,1}\r\n-    },\r\n-    { // 8\r\n-        {1,1,1},\r\n-        {1,0,1},\r\n-        {1,1,1},\r\n-        {1,0,1},\r\n-        {1,1,1}\r\n-    },\r\n-    { // 9\r\n-        {1,1,1},\r\n-        {1,0,1},\r\n-        {1,1,1},\r\n-        {0,0,1},\r\n-        {1,1,1}\r\n-    }\r\n-};\r\n \r\n #endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740856318594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,8 @@\n+#ifndef MATRIX_H\r\n+#define MATRIX_H\r\n+#include \"globals.h\"\r\n+\r\n+void buttonsToMatrix();\r\n+void setButtonColor(int x, int y, CRGB color);\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740904618233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,16 +3,7 @@\n #include \"globals.h\"\r\n \r\n void buttonsToMatrix();\r\n void setButtonColor(int x, int y, CRGB color);\r\n+void rainbowButton(int x, int y);\r\n \r\n-#endif\n-#ifndef MATRIX_H\r\n-#define MATRIX_H\r\n-#include \"globals.h\"\r\n-\r\n-void buttonsToMatrix();\r\n-void setButtonColor(int x, int y, CRGB color);\r\n-void display_score(int score, CRGB color);\r\n-\r\n-\r\n #endif\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1740852013609,
+            "name": "Commit-0",
+            "content": "#ifndef MATRIX_H\r\n#define MATRIX_H\r\n#include \"globals.h\"\r\n\r\nvoid ledsToMatrix();\r\nvoid setButtonColor(int x, int y, CRGB color);\r\nvoid display_digit(int digit, int xOffset, int yOffset, CRGB color);\r\nvoid display_score(int score, CRGB color);\r\n\r\nconst uint8_t DIGIT_PATTERNS[10][5][3] = {\r\n    { // 0\r\n        {1,1,1},\r\n        {1,0,1},\r\n        {1,0,1},\r\n        {1,0,1},\r\n        {1,1,1}\r\n    },\r\n    { // 1\r\n        {0,0,1},\r\n        {0,0,1},\r\n        {0,0,1},\r\n        {0,0,1},\r\n        {0,0,1}\r\n    },\r\n    { // 2\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {1,1,1},\r\n        {1,0,0},\r\n        {1,1,1}\r\n    },\r\n    { // 3\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {1,1,1}\r\n    },\r\n    { // 4\r\n        {1,0,1},\r\n        {1,0,1},\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {0,0,1}\r\n    },\r\n    { // 5\r\n        {1,1,1},\r\n        {1,0,0},\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {1,1,1}\r\n    },\r\n    { // 6\r\n        {1,1,1},\r\n        {1,0,0},\r\n        {1,1,1},\r\n        {1,0,1},\r\n        {1,1,1}\r\n    },\r\n    { // 7\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {0,0,1},\r\n        {0,0,1},\r\n        {0,0,1}\r\n    },\r\n    { // 8\r\n        {1,1,1},\r\n        {1,0,1},\r\n        {1,1,1},\r\n        {1,0,1},\r\n        {1,1,1}\r\n    },\r\n    { // 9\r\n        {1,1,1},\r\n        {1,0,1},\r\n        {1,1,1},\r\n        {0,0,1},\r\n        {1,1,1}\r\n    }\r\n};\r\n\r\n#endif"
+        }
+    ]
+}

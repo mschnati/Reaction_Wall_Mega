@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/utils.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1740852856201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740852863478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,15 @@\n \r\n // Check for button presses\r\n const int buttons[] = {\r\n     CAP_TOUCH_1, CAP_TOUCH_2, CAP_TOUCH_3, CAP_TOUCH_4, CAP_TOUCH_5, CAP_TOUCH_6, CAP_TOUCH_7, CAP_TOUCH_8,\r\n-    CAP_TOUCH_9, CAP_TOUCH_10, CAP_TOUCH_11, CAP_TOUCH_12, CAP_\n\\ No newline at end of file\n+    CAP_TOUCH_9, CAP_TOUCH_10, CAP_TOUCH_11, CAP_TOUCH_12, CAP_TOUCH_13, CAP_TOUCH_14, CAP_TOUCH_15, CAP_TOUCH_16,\r\n+    CAP_TOUCH_17, CAP_TOUCH_18, CAP_TOUCH_19, CAP_TOUCH_20, CAP_TOUCH_21, CAP_TOUCH_22, CAP_TOUCH_23, CAP_TOUCH_24,\r\n+};\r\n+\r\n+bool checkButton(int buttonNum);\r\n+void updateDisplay(const char* message, int line, int textSize);\r\n+#ifdef TEST\r\n+void buttonTest();\r\n+#endif\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1740852856201,
+            "name": "Commit-0",
+            "content": "#ifndef UTILS_H\r\n#define UTILS_H\r\n\r\n#include \"globals.h\"\r\n\r\n// Check for button presses\r\nconst int buttons[] = {\r\n    CAP_\r\n};\r\n\r\nbool checkButton(int buttonNum);\r\nvoid updateDisplay(const char* message, int line, int textSize);\r\n#ifdef TEST\r\nvoid buttonTest();\r\n#endif\r\n\r\n#endif"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "sourceFile": "src/globals.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1740851149687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740851200191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,9 @@\n #ifdef TICTACTOE_GAME\r\n #include \"games/tictactoe.h\"\r\n #endif\r\n \r\n-#define NUM_LEDS 256\r\n+#define NUM_LEDS 21\r\n #define LED_ROWS 16\r\n #define LED_COLS 16\r\n #define DATA_PIN 16\r\n #define DEBOUNCE_TIME 50\r\n"
+                },
+                {
+                    "date": 1740851208667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,12 +71,12 @@\n #ifdef TICTACTOE_GAME\r\n #include \"games/tictactoe.h\"\r\n #endif\r\n \r\n-#define NUM_LEDS 21\r\n+#define NUM_LEDS 216\r\n #define LED_ROWS 16\r\n #define LED_COLS 16\r\n-#define DATA_PIN 16\r\n+#define DATA_PIN 52\r\n #define DEBOUNCE_TIME 50\r\n #define DISPLAY_TIME 1000\r\n #define BRIGHTNESS 40\r\n \r\n"
+                },
+                {
+                    "date": 1740851219782,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,5 +83,5 @@\n \r\n extern CRGB leds[NUM_LEDS];\r\n extern int LEDMatrix[16][16];\r\n \r\n-#endi\n\\ No newline at end of file\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740851707383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,87 @@\n+#ifndef GLOBALS_H\r\n+#define GLOBALS_H\r\n+\r\n+/**\r\n+ * 7 8 9\r\n+ * 4 5 6\r\n+ * 1 2 3\r\n+ * Button pins \r\n+ */\r\n+// 36 Capacitive touch sensor pins\r\n+#define CAP_TOUCH_1 37\r\n+\r\n+#define CAP_TOUCH_2 2\r\n+#define CAP_TOUCH_3 3\r\n+#define CAP_TOUCH_4 4\r\n+#define CAP_TOUCH_5 5\r\n+#define CAP_TOUCH_6 6\r\n+#define CAP_TOUCH_7 7\r\n+#define CAP_TOUCH_8 8\r\n+#define CAP_TOUCH_9 9\r\n+#define CAP_TOUCH_10 10\r\n+#define CAP_TOUCH_11 11\r\n+#define CAP_TOUCH_12 12\r\n+#define CAP_TOUCH_13 13\r\n+\r\n+#define CAP_TOUCH_14 44\r\n+#define CAP_TOUCH_15 45\r\n+#define CAP_TOUCH_16 46\r\n+#define CAP_TOUCH_17 47\r\n+#define CAP_TOUCH_18 48\r\n+#define CAP_TOUCH_19 49\r\n+#define CAP_TOUCH_20 50\r\n+#define CAP_TOUCH_21 51\r\n+\r\n+#define CAP_TOUCH_22 22\r\n+#define CAP_TOUCH_23 23\r\n+#define CAP_TOUCH_24 24\r\n+#define CAP_TOUCH_25 25\r\n+#define CAP_TOUCH_26 26\r\n+#define CAP_TOUCH_27 27\r\n+#define CAP_TOUCH_28 28\r\n+#define CAP_TOUCH_29 29\r\n+#define CAP_TOUCH_30 30\r\n+#define CAP_TOUCH_31 31\r\n+#define CAP_TOUCH_32 32\r\n+#define CAP_TOUCH_33 33\r\n+#define CAP_TOUCH_34 34\r\n+#define CAP_TOUCH_35 35\r\n+#define CAP_TOUCH_36 36\r\n+\r\n+#define NUM_BUTTONS 36\r\n+\r\n+// Display\r\n+#include <Wire.h>\r\n+#include <Adafruit_GFX.h>\r\n+#include <Adafruit_SSD1306.h>\r\n+#define SCREEN_WIDTH 128 // OLED display width, in pixels\r\n+#define SCREEN_HEIGHT 32 // OLED display height, in pixels\r\n+#define SDA_PIN 21\r\n+#define SCL_PIN 22\r\n+extern Adafruit_SSD1306 display;\r\n+\r\n+#include <Arduino.h>\r\n+#include <FastLED.h>\r\n+#include \"config.h\"\r\n+#include \"matrix.h\"\r\n+#include \"utils.h\"\r\n+#ifdef REACTION_GAME\r\n+#include \"games/reactiongame.h\"\r\n+#endif\r\n+#ifdef TICTACTOE_GAME\r\n+#include \"games/tictactoe.h\"\r\n+#endif\r\n+\r\n+#define NUM_LEDS 216\r\n+#define LED_ROWS 6\r\n+#define LED_COLS 6\r\n+#define DATA_PIN 52\r\n+#define DEBOUNCE_TIME 50\r\n+#define DISPLAY_TIME 1000\r\n+#define BRIGHTNESS 200\r\n+\r\n+\r\n+extern CRGB leds[NUM_LEDS];\r\n+extern int LEDMatrix[16][16];\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1740851149687,
+            "name": "Commit-0",
+            "content": "#ifndef GLOBALS_H\r\n#define GLOBALS_H\r\n\r\n/**\r\n * 7 8 9\r\n * 4 5 6\r\n * 1 2 3\r\n * Button pins \r\n */\r\n// 36 Capacitive touch sensor pins\r\n#define CAP_TOUCH_1 37\r\n\r\n#define CAP_TOUCH_2 2\r\n#define CAP_TOUCH_3 3\r\n#define CAP_TOUCH_4 4\r\n#define CAP_TOUCH_5 5\r\n#define CAP_TOUCH_6 6\r\n#define CAP_TOUCH_7 7\r\n#define CAP_TOUCH_8 8\r\n#define CAP_TOUCH_9 9\r\n#define CAP_TOUCH_10 10\r\n#define CAP_TOUCH_11 11\r\n#define CAP_TOUCH_12 12\r\n#define CAP_TOUCH_13 13\r\n\r\n#define CAP_TOUCH_14 44\r\n#define CAP_TOUCH_15 45\r\n#define CAP_TOUCH_16 46\r\n#define CAP_TOUCH_17 47\r\n#define CAP_TOUCH_18 48\r\n#define CAP_TOUCH_19 49\r\n#define CAP_TOUCH_20 50\r\n#define CAP_TOUCH_21 51\r\n\r\n#define CAP_TOUCH_22 22\r\n#define CAP_TOUCH_23 23\r\n#define CAP_TOUCH_24 24\r\n#define CAP_TOUCH_25 25\r\n#define CAP_TOUCH_26 26\r\n#define CAP_TOUCH_27 27\r\n#define CAP_TOUCH_28 28\r\n#define CAP_TOUCH_29 29\r\n#define CAP_TOUCH_30 30\r\n#define CAP_TOUCH_31 31\r\n#define CAP_TOUCH_32 32\r\n#define CAP_TOUCH_33 33\r\n#define CAP_TOUCH_34 34\r\n#define CAP_TOUCH_35 35\r\n#define CAP_TOUCH_36 36\r\n\r\n#define NUM_BUTTONS 36\r\n\r\n// Display\r\n#include <Wire.h>\r\n#include <Adafruit_GFX.h>\r\n#include <Adafruit_SSD1306.h>\r\n#define SCREEN_WIDTH 128 // OLED display width, in pixels\r\n#define SCREEN_HEIGHT 32 // OLED display height, in pixels\r\n#define SDA_PIN 21\r\n#define SCL_PIN 22\r\nextern Adafruit_SSD1306 display;\r\n\r\n#include <Arduino.h>\r\n#include <FastLED.h>\r\n#include \"config.h\"\r\n#include \"matrix.h\"\r\n#include \"utils.h\"\r\n#ifdef REACTION_GAME\r\n#include \"games/reactiongame.h\"\r\n#endif\r\n#ifdef TICTACTOE_GAME\r\n#include \"games/tictactoe.h\"\r\n#endif\r\n\r\n#define NUM_LEDS 256\r\n#define LED_ROWS 16\r\n#define LED_COLS 16\r\n#define DATA_PIN 16\r\n#define DEBOUNCE_TIME 50\r\n#define DISPLAY_TIME 1000\r\n#define BRIGHTNESS 40\r\n\r\n\r\nextern CRGB leds[NUM_LEDS];\r\nextern int LEDMatrix[16][16];\r\n\r\n#endif"
+        }
+    ]
+}

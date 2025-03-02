@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/games/connectfour.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1740907917085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740908486449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n     uint8_t currentPlayer; // 1 or 2\r\n     bool isActive;\r\n     unsigned long lastUpdate;\r\n     bool hasWinner;\r\n+    int winningCells[4][2];  // [i][0] is row; [i][1] is col for the winning four cells\r\n } ConnectFourState;\r\n \r\n // Initializes the Connect Four board and game state.\r\n void connectfour_init(ConnectFourState* state);\r\n"
+                }
+            ],
+            "date": 1740907917085,
+            "name": "Commit-0",
+            "content": "#ifndef CONNECTFOUR_H\r\n#define CONNECTFOUR_H\r\n\r\n#include <FastLED.h>\r\n#include \"globals.h\"\r\n\r\ntypedef struct {\r\n    int board[6][6];       // 0 = empty, 1 = player1, 2 = player2\r\n    uint8_t currentPlayer; // 1 or 2\r\n    bool isActive;\r\n    unsigned long lastUpdate;\r\n    bool hasWinner;\r\n} ConnectFourState;\r\n\r\n// Initializes the Connect Four board and game state.\r\nvoid connectfour_init(ConnectFourState* state);\r\n\r\n// Processes input, updates the board, and checks for win/draw conditions.\r\nvoid connectfour_update(ConnectFourState* state);\r\n\r\n// Starts the Connect Four game.\r\nvoid connectfour_start(ConnectFourState* state);\r\n\r\n// Returns true if the game is currently active.\r\nbool connectfour_is_running(ConnectFourState* state);\r\n\r\n#endif // CONNECTFOUR_H"
+        }
+    ]
+}

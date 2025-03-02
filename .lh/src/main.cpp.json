@@ -1,0 +1,62 @@
+{
+    "sourceFile": "src/main.cpp",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1740847231032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1740847236725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,20 @@\n+#include <Arduino.h>\r\n+\r\n+#define NUM_LEDS 21\r\n+\r\n+// put function declarations here:\r\n+int myFunction(int, int);\r\n+\r\n+void setup() {\r\n+  // put your setup code here, to run once:\r\n+  int result = myFunction(2, 3);\r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847248289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+#include <Arduino.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+\r\n+\r\n+// put function declarations here:\r\n+int myFunction(int, int);\r\n+\r\n+void setup() {\r\n+  // put your setup code here, to run once:\r\n+  int result = myFunction(2, 3);\r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847253994,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+#include <Arduino.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+#define DATA_PIN 10\r\n+#define BRIGHTNESS 100\r\n+\r\n+\r\n+// put function declarations here:\r\n+int myFunction(int, int);\r\n+\r\n+void setup() {\r\n+  // put your setup code here, to run once:\r\n+  int result = myFunction(2, 3);\r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847262666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,12 @@\n #include <Arduino.h>\r\n \r\n+\r\n #define NUM_LEDS 216\r\n #define DATA_PIN 10\r\n #define BRIGHTNESS 100\r\n \r\n+CRGB leds[NUM_LEDS];\r\n \r\n // put function declarations here:\r\n int myFunction(int, int);\r\n \r\n@@ -19,66 +21,5 @@\n \r\n // put function definitions here:\r\n int myFunction(int x, int y) {\r\n   return x + y;\r\n-}\n-#include <Arduino.h>\r\n-\r\n-#define NUM_LEDS 216\r\n-\r\n-\r\n-// put function declarations here:\r\n-int myFunction(int, int);\r\n-\r\n-void setup() {\r\n-  // put your setup code here, to run once:\r\n-  int result = myFunction(2, 3);\r\n-}\r\n-\r\n-void loop() {\r\n-  // put your main code here, to run repeatedly:\r\n-}\r\n-\r\n-// put function definitions here:\r\n-int myFunction(int x, int y) {\r\n-  return x + y;\r\n-}\n-#include <Arduino.h>\r\n-\r\n-#define NUM_LEDS 21\r\n-\r\n-// put function declarations here:\r\n-int myFunction(int, int);\r\n-\r\n-void setup() {\r\n-  // put your setup code here, to run once:\r\n-  int result = myFunction(2, 3);\r\n-}\r\n-\r\n-void loop() {\r\n-  // put your main code here, to run repeatedly:\r\n-}\r\n-\r\n-// put function definitions here:\r\n-int myFunction(int x, int y) {\r\n-  return x + y;\r\n-}\n-#include <Arduino.h>\r\n-\r\n-#\r\n-\r\n-// put function declarations here:\r\n-int myFunction(int, int);\r\n-\r\n-void setup() {\r\n-  // put your setup code here, to run once:\r\n-  int result = myFunction(2, 3);\r\n-}\r\n-\r\n-void loop() {\r\n-  // put your main code here, to run repeatedly:\r\n-}\r\n-\r\n-// put function definitions here:\r\n-int myFunction(int x, int y) {\r\n-  return x + y;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847269894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+#include <Arduino.h>\r\n+#include <FastLED.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+#define DATA_PIN 10\r\n+#define BRIGHTNESS 100\r\n+\r\n+CRGB leds[NUM_LEDS];\r\n+\r\n+\r\n+void setup() {\r\n+  // put your setup code here, to run once:\r\n+  int result = myFunction(2, 3);\r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847275798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,9 @@\n CRGB leds[NUM_LEDS];\r\n \r\n \r\n void setup() {\r\n-  // put your setup code here, to run once:\r\n-  int result = myFunction(2, 3);\r\n+  // set up the LED matrix\r\n }\r\n \r\n void loop() {\r\n   // put your main code here, to run repeatedly:\r\n@@ -19,30 +18,5 @@\n \r\n // put function definitions here:\r\n int myFunction(int x, int y) {\r\n   return x + y;\r\n-}\n-#include <Arduino.h>\r\n-\r\n-\r\n-#define NUM_LEDS 216\r\n-#define DATA_PIN 10\r\n-#define BRIGHTNESS 100\r\n-\r\n-CRGB leds[NUM_LEDS];\r\n-\r\n-// put function declarations here:\r\n-int myFunction(int, int);\r\n-\r\n-void setup() {\r\n-  // put your setup code here, to run once:\r\n-  int result = myFunction(2, 3);\r\n-}\r\n-\r\n-void loop() {\r\n-  // put your main code here, to run repeatedly:\r\n-}\r\n-\r\n-// put function definitions here:\r\n-int myFunction(int x, int y) {\r\n-  return x + y;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847290838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,24 @@\n+#include <Arduino.h>\r\n+#include <FastLED.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+#define DATA_PIN 10\r\n+#define BRIGHTNESS 100\r\n+\r\n+CRGB leds[NUM_LEDS];\r\n+\r\n+\r\n+void setup() {\r\n+  // set up the LED matrix\r\n+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);\r\n+  \r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847303546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,28 @@\n+#include <Arduino.h>\r\n+#include <FastLED.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+#define DATA_PIN 10\r\n+#define BRIGHTNESS 100\r\n+\r\n+CRGB leds[NUM_LEDS];\r\n+\r\n+\r\n+void setup() {\r\n+  // set up the LED matrix\r\n+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);\r\n+  FastLED.setBrightness(BRIGHTNESS);\r\n+  F\r\n+  FastLED.clear();\r\n+  FastLED.show();\r\n+\r\n+}\r\n+\r\n+void loop() {\r\n+  // put your main code here, to run repeatedly:\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847330457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,28 @@\n+#include <Arduino.h>\r\n+#include <FastLED.h>\r\n+\r\n+#define NUM_LEDS 216\r\n+#define DATA_PIN 10\r\n+#define BRIGHTNESS 100\r\n+\r\n+CRGB leds[NUM_LEDS];\r\n+\r\n+\r\n+void setup() {\r\n+  // set up the LED matrix\r\n+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);\r\n+  FastLED.setBrightness(BRIGHTNESS);\r\n+  FastLED.setMaxRefreshRate(60);\r\n+  FastLED.clear();\r\n+  FastLED.show();\r\n+\r\n+}\r\n+\r\n+void loop() {\r\n+  // light up LEDs in blocks of 6\r\n+}\r\n+\r\n+// put function definitions here:\r\n+int myFunction(int x, int y) {\r\n+  return x + y;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1740847424999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n void loop() {\r\n   // light up LEDs in blocks of 6\r\n   for (int i = 0; i < NUM_LEDS; i += 6) {\r\n     for (int j = 0; j < 6; j++) {\r\n-      leds[i + j] = CRGB::Red;\r\n+      leds[i + j] = CRGB::Blue;\r\n     }\r\n     FastLED.show();\r\n     delay(1000);\r\n     FastLED.clear();\r\n"
+                },
+                {
+                    "date": 1740847638938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #include <Arduino.h>\r\n #include <FastLED.h>\r\n \r\n #define NUM_LEDS 216\r\n-#define DATA_PIN 10\r\n+#define DATA_PIN 8\r\n #define BRIGHTNESS 100\r\n \r\n CRGB leds[NUM_LEDS];\r\n \r\n"
+                }
+            ],
+            "date": 1740847231032,
+            "name": "Commit-0",
+            "content": "#include <Arduino.h>\r\n\r\n#\r\n\r\n// put function declarations here:\r\nint myFunction(int, int);\r\n\r\nvoid setup() {\r\n  // put your setup code here, to run once:\r\n  int result = myFunction(2, 3);\r\n}\r\n\r\nvoid loop() {\r\n  // put your main code here, to run repeatedly:\r\n}\r\n\r\n// put function definitions here:\r\nint myFunction(int x, int y) {\r\n  return x + y;\r\n}"
+        }
+    ]
+}
