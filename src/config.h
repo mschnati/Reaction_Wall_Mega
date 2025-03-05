@@ -8,6 +8,7 @@
 #define REACTION_GAME
 #define TICTACTOE_GAME
 #define CONNECT_FOUR
+#define MEMORY_GAME
 #define TEST
 
 #endif

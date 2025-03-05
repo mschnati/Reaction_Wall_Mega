@@ -12,6 +12,18 @@ const int buttons[] = {
     CAP_TOUCH_33, CAP_TOUCH_34, CAP_TOUCH_35, CAP_TOUCH_36
 };
 
+const CRGB colors[] = {
+    CRGB::Red, CRGB::Green, CRGB::Blue, CRGB::Purple, CRGB::Yellow, CRGB::Purple, CRGB::Orange, CRGB::White, CRGB::Teal, CRGB::Cyan, 
+    CRGB::Magenta, CRGB::Lime, CRGB::Turquoise, CRGB::Gold, CRGB::Violet, CRGB::Azure, CRGB::MistyRose, CRGB::Indigo, CRGB::Lavender, 
+    CRGB::Maroon, CRGB::Olive, CRGB::Coral, CRGB::Salmon, CRGB::Khaki, CRGB::Plum, CRGB::Crimson, CRGB::MintCream, CRGB::Beige, CRGB::Ivory
+};
+
+const int NUM_COLORS = sizeof(colors) / sizeof(colors[0]);
+
+CRGB randomColor();
+
+bool anyButtonPressed();
+
 bool checkButton(int buttonNum);
 void updateDisplay(const char* message, int line, int textSize);
 #ifdef TEST

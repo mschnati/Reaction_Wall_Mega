@@ -1,7 +1,7 @@
 #include "reactiongame.h"
 #include "matrix.h"
 
-unsigned int GAME_DURATION = 20000;  // 20 seconds
+unsigned int GAME_DURATION = 15000;  // 20 seconds
 #define ACCEPT_BUTTON 22
 #define UP_BUTTON 27
 #define DOWN_BUTTON 15
@@ -28,6 +28,9 @@ void reaction_game_start(ReactionGameState* state) {
     setButtonColor(2, 2, CRGB::Red);
     rainbowButton(3, 2);
     FastLED.show();
+    u8g2.clearBuffer();
+    updateDisplay("Reaction Game", 1, 10);
+
     while (!checkButton(ACCEPT_BUTTON)) {
         if (checkButton(UP_BUTTON)) {
             if (GAME_DURATION < 45000) GAME_DURATION += 1000;
@@ -45,8 +48,7 @@ void reaction_game_start(ReactionGameState* state) {
             FastLED.show();
         }
         // format string with duration
-        // display.clearDisplay();
-        updateDisplay("Reaction Game", 0, 1);
+        updateDisplay("Reaction Game", 1, 10);
         char message[16];
         sprintf(message, "Duration: %d", GAME_DURATION / 1000);
         updateDisplay(message, 3, 1);
@@ -56,6 +58,9 @@ void reaction_game_start(ReactionGameState* state) {
     state->score = 0;
     state->gameStartTime = millis();
     state->isGameActive = true;
+
+    state->activeColor = randomColor();
+    
     reaction_game_set_new_block(state);
 }
 
@@ -68,15 +73,22 @@ void reaction_game_set_new_block(ReactionGameState* state) {
     setButtonColor(state->activeX, state->activeY, CRGB::Black);
     
     // Set new random block, different from the current one
-    int new_x = random(BUTTON_COLS);
-    int new_y = random(BUTTON_ROWS);
+    int rng = random(36);
+    int new_x = rng % BUTTON_COLS;
+    int new_y = rng / BUTTON_COLS;
     state->activeY = new_y;
     while (new_x == state->activeX) {
         new_x = random(BUTTON_COLS);
     }
     state->activeX = new_x;
-    // setBlockColor_3(newX, newY, BLOCK_COLOR);
-    setButtonColor(new_x, new_y, CRGB(random(255), random(255), random(255)));
+
+    // 1, 3 broken button
+    if (state->activeX == 1 && state->activeY == 3) {
+        state->activeX = 2;
+        new_x = 2;
+    }
+    
+    setButtonColor(new_x, new_y, state->activeColor);
     FastLED.show();
 }
 
@@ -97,7 +109,7 @@ void reaction_game_update(ReactionGameState* state) {
         
         // Display score
         // Display average reaction in ms time on display
-        // display.clearDisplay();
+        u8g2.clearBuffer();
         char message[32];
         sprintf(message, "Score: %d", state->score);
         updateDisplay(message, 0, 1);
@@ -109,21 +121,23 @@ void reaction_game_update(ReactionGameState* state) {
         }
         updateDisplay(message, 3, 1);
         
-        while (millis() - state->gameEndTime < 2000) {
+        while (millis() - state->gameEndTime < 5000) {
             // Wait for 5 seconds before returning to main menu
         }
         FastLED.clear();
         FastLED.show();
-        // mainMenu();
+        
+        u8g2.clearBuffer();
+        
         return;
     }
 
     if (checkButton(ButtonMatrix[state->activeX][state->activeY] + 1)) {
+        state->score++;
         char message[16];
         sprintf(message, "Score: %d", state->score);
-        // display.clearDisplay();
+        u8g2.clearBuffer();
         updateDisplay(message, 1, 2);
-        state->score++;
         reaction_game_set_new_block(state);
     }
 }

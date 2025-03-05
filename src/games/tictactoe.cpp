@@ -113,6 +113,9 @@ void tictactoe_init(TicTacToeState* state) {
     state->currentPlayer = 1;
     state->isActive = false;
     state->lastUpdate = 0;
+
+    updateDisplay("TicTacToe", 0, 10);
+    updateDisplay("Red's turn", 3, 8);
 }
 
 /**
@@ -123,7 +126,6 @@ void tictactoe_update(TicTacToeState* state) {
     if (!state->isActive) return;
     
     FastLED.clear();
-    // (Optional) draw a grid on the 6x6 matrix if desired
     
     // Draw any squares that have been claimed.
     for (int pos = 1; pos <= 9; pos++) {
@@ -135,11 +137,6 @@ void tictactoe_update(TicTacToeState* state) {
         }
     }
     
-    // Display current player message (if you use a display)
-    char message[16];
-    sprintf(message, "Player %d", state->currentPlayer);
-    // updateDisplay("TicTacToe", 0, 1);
-    // updateDisplay(message, 3, 1);
     
     // Check for input in any of the 9 squares.
     for (int pos = 1; pos <= 9; pos++) {
@@ -164,23 +161,41 @@ void tictactoe_update(TicTacToeState* state) {
                     FastLED.show();
                     
                     // (Optional) update display message for win.
+                    if (state->currentPlayer == 1) {
+                        u8g2.clearBuffer();
+                        updateDisplay("TicTacToe", 0, 10);
+                        updateDisplay("Red wins!", 2, 14);
+                    } else {
+                        u8g2.clearBuffer();
+                        updateDisplay("TicTacToe", 0, 10);
+                        updateDisplay("Blue wins!", 2, 14);
+                    }
                     while (millis() - endTime < WIN_DISPLAY_TIME) {
                         // Wait to display winning pieces.
                     }
                     state->isActive = false;
                     FastLED.clear();
+                    u8g2.clearBuffer();
                     return;
                 } else if (check_draw(state)) {
                     // Show the last move and then clear.
                     FastLED.show();
-                    delay(1000);
                     state->isActive = false;
-                    FastLED.clear();
+                    updateDisplay("Draw!", 5, 8);
                     delay(WIN_DISPLAY_TIME);
+                    FastLED.clear();
+                    u8g2.clearBuffer();
                     return;
                 }
                 
                 // Switch current player.
+                u8g2.clearBuffer();
+                updateDisplay("TicTacToe", 0, 10);
+                if (state->currentPlayer == 1) {
+                    updateDisplay("Blue's turn", 3, 8);
+                } else {
+                    updateDisplay("Red's turn", 3, 8);
+                }
                 state->currentPlayer = (state->currentPlayer == 1) ? 2 : 1;
                 break; // Process one move per update.
             }
@@ -208,5 +223,8 @@ void tictactoe_start(TicTacToeState* state) {
     // Wait 500ms to let any bouncing or residual button presses clear out.
     delay(500);
     state->isActive = true;
+    while (anyButtonPressed()) {
+        delay(10);
+    }
 }
 

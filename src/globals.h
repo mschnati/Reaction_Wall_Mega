@@ -70,11 +70,15 @@ extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2;
 #include "games/connectfour.h"
 #endif
 
+#ifdef MEMORY_GAME
+#include "games/memorygame.h"
+#endif
+
 #define NUM_LEDS 216
 #define BUTTON_ROWS 6
 #define BUTTON_COLS 6
 #define DATA_PIN 52
-#define DEBOUNCE_TIME 40
+#define DEBOUNCE_TIME 20
 #define DISPLAY_TIME 1000
 #define BRIGHTNESS 255
 

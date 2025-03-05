@@ -2,7 +2,7 @@
 #include <string.h>
 
 #define PLAYER_1_COLOR CRGB::Red
-#define PLAYER_2_COLOR CRGB::Blue
+#define PLAYER_2_COLOR CRGB::Yellow
 #define WIN_COLOR CRGB::Green
 #define WIN_DISPLAY_TIME 3000
 
@@ -22,6 +22,9 @@ void connectfour_init(ConnectFourState* state) {
     // Optionally clear the display:
     FastLED.clear();
     FastLED.show();
+    
+    updateDisplay("Connect Four", 0, 10);
+    updateDisplay("Red's turn", 3, 8);
 }
 
 // Check if there are four in a row starting from (row, col) in direction (dRow, dCol)
@@ -31,7 +34,7 @@ static bool checkDirection(ConnectFourState* state, int row, int col, int dRow, 
         int newRow = row + i * dRow;
         int newCol = col + i * dCol;
         if (newRow < 0 || newRow >= 6 || newCol < 0 || newCol >= 6 ||
-           state->board[newRow][newCol] != player) {
+            state->board[newRow][newCol] != player) {
             return false;
         }
     }
@@ -186,8 +189,19 @@ void connectfour_update(ConnectFourState* state) {
                         setCellColor(r, c, WIN_COLOR);
                     }
                     FastLED.show();
+                    if (state->currentPlayer == 1) {
+                        u8g2.clearBuffer();
+                        updateDisplay("Connect Four", 0, 10);
+                        updateDisplay("Red wins!", 2, 14);
+                    } else {
+                        u8g2.clearBuffer();
+                        updateDisplay("Connect Four", 0, 10);
+                        updateDisplay("Yellow wins!", 2, 14);
+                    }
                     delay(WIN_DISPLAY_TIME);
                     state->isActive = false;
+                    FastLED.clear();
+                    u8g2.clearBuffer();
                     return;
                 }
                 else if (check_draw(state)) {
@@ -201,9 +215,17 @@ void connectfour_update(ConnectFourState* state) {
                 }
                 
                 // Switch players.
+                u8g2.clearBuffer();
+                updateDisplay("Connect Four", 0, 10);
+                if (state->currentPlayer == 1) {
+                    updateDisplay("Yellow's turn", 3, 8);
+                } else {
+                    updateDisplay("Red's turn", 3, 8);
+                }
+                
                 state->currentPlayer = (state->currentPlayer == 1) ? 2 : 1;
                 // Pause briefly to debounce input.
-                delay(250);
+                delay(100);
                 break; // Process one move per update.
             }
         }
@@ -220,6 +242,9 @@ void connectfour_start(ConnectFourState* state) {
     // Optional extra delay for debouncing before starting.
     delay(500);
     state->isActive = true;
+    while (anyButtonPressed()) {
+        delay(10);
+    }
 }
 
 /**

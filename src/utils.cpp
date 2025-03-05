@@ -34,12 +34,60 @@ bool checkButton(int buttonNum) {
  * @param message The message to display.
  */
 void updateDisplay(const char* message, int line, int textSize) {
-    // display.setTextSize(textSize);
-    // display.setTextColor(SSD1306_WHITE);
-    // display.setCursor(0, line * 8 * textSize);
-    // display.println(message);
-    // display.display();
-    
+  int tSize = textSize;
+  switch (textSize) {
+    case 8:
+        u8g2.setFont(u8g2_font_ncenB08_tr);
+        break;
+    case 10:
+        u8g2.setFont(u8g2_font_ncenB10_tr);
+        break;
+    case 12:
+        u8g2.setFont(u8g2_font_ncenB12_tr);
+        break;
+    case 14:
+        u8g2.setFont(u8g2_font_ncenB14_tr);
+        break;
+    case 18:
+        u8g2.setFont(u8g2_font_ncenB18_tr);
+        break;
+    case 24:
+        u8g2.setFont(u8g2_font_ncenB24_tr);
+        break;
+    default:
+        u8g2.setFont(u8g2_font_ncenB08_tr);
+        tSize = 8;
+        break;
+    }
+
+    int y = ((tSize + 2) * line + tSize) + 2;
+
+    u8g2.drawStr(2, y, message);
+    u8g2.sendBuffer();
+
+}
+
+/**
+ * Clears the button matrix.
+ */
+bool anyButtonPressed() {
+  for (int row = 0; row < 6; row++) {
+      for (int col = 0; col < 6; col++) {
+          int btnID = ButtonMatrix[row][col];
+          if (checkButton(btnID + 1)) {  // Adjust if necessary.
+              return true;
+          }
+      }
+  }
+  return false;
+}
+
+/**
+ * Get a random color from the colors array.
+ * @return A random CRGB color.
+ */
+CRGB randomColor() {
+    return colors[random(NUM_COLORS)];
 }
 
 #ifdef TEST

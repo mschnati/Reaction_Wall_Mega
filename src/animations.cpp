@@ -58,8 +58,7 @@ void rainbowBorder(int numButtons, int buttons[][2]) {
     for (int k = 0; k < numButtons; k++) {
         int row = buttons[k][0];
         int col = buttons[k][1];
-        rainbowButton(row, col); // Change color as needed
-        // setButtonColor(row, col, CRGB::White); // Change color as needed
+        setButtonColor(row, col, colors[k]);
     }
 
     FastLED.show();

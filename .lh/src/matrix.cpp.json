@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 31,
+            "activePatchIndex": 33,
             "patches": [
                 {
                     "date": 1740852013609,
@@ -132,6 +132,14 @@
                 {
                     "date": 1740906377861,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,10 +35,11 @@\n void rainbowButton(int x, int y) {\r\n     static uint8_t hue_offset = 0;\r\n     int button = ButtonMatrix[x][y];\r\n     for (int i = 0; i < 6; i++) {\r\n-        leds[button * 6 + i] = CHSV((i * 255 / 6 + hoffset) % 255, 255, 255);\r\n+        leds[button * 6 + i] = CHSV((i * 255 / 6 + hue_offset) % 255, 255, 255);\r\n     }\r\n+    \r\n }\r\n \r\n /**\r\n  * Set the color of a 4x4 block on the LED matrix.\r\n"
+                },
+                {
+                    "date": 1741198374384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,15 +31,17 @@\n         leds[button * 6 + i] = color;\r\n     }\r\n }\r\n \r\n+\r\n+\r\n void rainbowButton(int x, int y) {\r\n     static uint8_t hue_offset = 0;\r\n     int button = ButtonMatrix[x][y];\r\n     for (int i = 0; i < 6; i++) {\r\n         leds[button * 6 + i] = CHSV((i * 255 / 6 + hue_offset) % 255, 255, 255);\r\n     }\r\n-    \r\n+    hue_offset += 1;\r\n }\r\n \r\n /**\r\n  * Set the color of a 4x4 block on the LED matrix.\r\n"
+                },
+                {
+                    "date": 1741198397681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,57 @@\n+#include \"globals.h\"\r\n+\r\n+CRGB leds[NUM_LEDS];\r\n+int ButtonMatrix[BUTTON_ROWS][BUTTON_COLS];\r\n+\r\n+/** convert leds array to 16x16 matrix. [0][0] is bottom left corner\r\n+ *  [5][0] - [5][5]\r\n+ *     -         -\r\n+ *   [0][0] - [0][5]\r\n+ */\r\n+void buttonsToMatrix() {\r\n+    for (int i = 0; i < BUTTON_ROWS; i++) {\r\n+        for (int j = 0; j < BUTTON_COLS; j++) {\r\n+            if (i % 2 == 0) {\r\n+                ButtonMatrix[i][j] = i * BUTTON_COLS + j;\r\n+            } else {\r\n+                ButtonMatrix[i][j] = i * BUTTON_ROWS + (BUTTON_ROWS - 1) - j;\r\n+            }\r\n+        }\r\n+    }\r\n+}\r\n+\r\n+/** \r\n+ * Set the color of the button at the given coordinates. Each button is 6 LEDs long\r\n+ * @param x The x coordinate of the button (0-5).\r\n+ * @param y The y coordinate of the button (0-5).\r\n+ */\r\n+void setButtonColor(int x, int y, CRGB color) {\r\n+    int button = ButtonMatrix[x][y];\r\n+    for (int i = 0; i < 6; i++) {\r\n+        leds[button * 6 + i] = color;\r\n+    }\r\n+}\r\n+\r\n+void setButtonColorMixed(int x, int y, CRGB )\r\n+\r\n+void rainbowButton(int x, int y) {\r\n+    static uint8_t hue_offset = 0;\r\n+    int button = ButtonMatrix[x][y];\r\n+    for (int i = 0; i < 6; i++) {\r\n+        leds[button * 6 + i] = CHSV((i * 255 / 6 + hue_offset) % 255, 255, 255);\r\n+    }\r\n+    hue_offset += 1;\r\n+}\r\n+\r\n+/**\r\n+ * Set the color of a 4x4 block on the LED matrix.\r\n+ * @param x The x coordinate of the block (0-3).\r\n+ * @param y The y coordinate of the block (0-3).\r\n+ */\r\n+void setBlockColor_4(int x, int y, CRGB color) {\r\n+    for (int i = 0; i < 4; i++) {\r\n+        for (int j = 0; j < 4; j++) {\r\n+            leds[ButtonMatrix[x * 4 + i][y * 4 + j]] = color;\r\n+        }\r\n+    }\r\n+}\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1740852013609,

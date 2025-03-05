@@ -1,14 +1,13 @@
 #include "globals.h"
 #include "animations.h"
 #include "matrix.h"
-#include "games/reactiongame.h"
-#include "games/tictactoe.h"
 
 #define NEXT_ANIMATION_BUTTON 6
 #define PREV_ANIMATION_BUTTON 1
 #define PLAY_REACTION_BUTTON 22
 #define PLAY_TICTACTOE_BUTTON 21
 #define PLAY_CONNECTFOUR_BUTTON 15
+#define PLAY_MEMORY_BUTTON 16
 
 enum Animation {
   RANDOM_BLOCK = 0,
@@ -26,38 +25,26 @@ enum Game {
   NUM_GAMES
 };
 
+bool mainMenuActive = true;
+
 ReactionGameState gameState;
 TicTacToeState tictactoeState;
 ConnectFourState connectfourState;
+MemoryGameState memoryState;
 Animation currentAnimation = RAINBOW_BORDER;
 
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
+
+void mainMenu();
 
 void setup() {
-    // Initialize I2C communication with specified SDA and SCL pins
-    // Initialize the display
-  // Wire.begin();
+  // Initialize serial communication
+  Serial.begin(9600);
   u8g2.begin();
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_ncenB08_tr);
-  u8g2.drawStr(0, 10, "Hello World!");
-  u8g2.drawStr(2, 20, "Press a button");
-  u8g2.drawStr(4, 30, "three lines");
-  u8g2.drawStr(6, 40, "four lines");
-  u8g2.drawStr(8, 50, "five lines");
-
+  u8g2.drawStr(4, 30, "Welcome to FHunBox"); 
   u8g2.sendBuffer();
-
-
-  // if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
-  //   Serial.println(F("SSD1306 allocation failed"));
-  //   for (;;); // Don't proceed, loop forever
-  // }
-  // // Clear the buffer
-  // display.clearDisplay();
-  // display.fillScreen(SSD1306_BLACK);
-  // display.display();
-
 
   // Initialize LED matrix
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
@@ -80,12 +67,55 @@ void setup() {
     leds[i] = CRGB::Black;
   }
 
-  rainbowButton(3, 2);
+  // Blue F
+  setButtonColor(0, 0, CRGB::Blue);
+  setButtonColor(1, 0, CRGB::Blue);
+  setButtonColor(2, 0, CRGB::Blue);
+  setButtonColor(2, 1, CRGB::Blue);
+  setButtonColor(2, 2, CRGB::Blue);
+  setButtonColor(3, 0, CRGB::Blue);
+  setButtonColor(4, 0, CRGB::Blue);
+  setButtonColor(4, 1, CRGB::Blue);
+  setButtonColor(4, 2, CRGB::Blue);
+
+  // White H
+  setButtonColor(0, 3, CRGB::White);
+  setButtonColor(1, 3, CRGB::White);
+  setButtonColor(2, 3, CRGB::White);
+  setButtonColor(3, 3, CRGB::White);
+  setButtonColor(4, 3, CRGB::White);
+  setButtonColor(0, 5, CRGB::White);
+  setButtonColor(1, 5, CRGB::White);
+  setButtonColor(2, 4, CRGB::White);
+  setButtonColor(2, 5, CRGB::White);
+  setButtonColor(3, 5, CRGB::White);
+  setButtonColor(4, 5, CRGB::White);
+
   FastLED.show();
+  delay(3000);
+  FastLED.clear();
+  FastLED.show();
+
+  u8g2.clearBuffer();
+
+  // Display main menu
+  mainMenu();
 }
 
 bool gameIsRunning() {
     return reaction_game_is_running(&gameState) || tictactoe_is_running(&tictactoeState) || connectfour_is_running(&connectfourState);
+}
+
+void mainMenu() {
+  updateDisplay("         Press to Play", 0, 8);
+  delay(10);
+  updateDisplay("Red:     Reaction", 2, 8);
+  delay(10);
+  updateDisplay("Green: TicTacToe", 3, 8);
+  delay(10);
+  updateDisplay("Blue:   Connect Four", 4, 8);
+  delay(10);
+  updateDisplay("Pink:   Memory", 5, 8);
 }
 
 void loop() {
@@ -93,7 +123,8 @@ void loop() {
   if (!gameIsRunning() && checkButton(PLAY_REACTION_BUTTON)) {
       FastLED.clear();
       FastLED.show();
-      // display.clearDisplay();
+      u8g2.clearBuffer();
+      mainMenuActive = false;
       updateDisplay("Reaction Game", 0, 1);
       reaction_game_start(&gameState);
   }
@@ -102,8 +133,8 @@ void loop() {
   if (!gameIsRunning() && checkButton(PLAY_TICTACTOE_BUTTON)) {
       FastLED.clear();
       FastLED.show();
-      // display.clearDisplay();
-      updateDisplay("TicTacToe Game", 0, 1);
+      u8g2.clearBuffer();
+      mainMenuActive = false;
       tictactoe_start(&tictactoeState);
   }
 
@@ -111,13 +142,26 @@ void loop() {
   if (!gameIsRunning() && checkButton(PLAY_CONNECTFOUR_BUTTON)) {
       FastLED.clear();
       FastLED.show();
-      // display.clearDisplay();
-      updateDisplay("Connect Four", 0, 1);
+      u8g2.clearBuffer();
+      mainMenuActive = false;
       connectfour_start(&connectfourState);
+  }
+
+  // Start memory sequence game when bottom right button is pressed
+  if (!gameIsRunning() && checkButton(PLAY_MEMORY_BUTTON)) {
+      FastLED.clear();
+      FastLED.show();
+      u8g2.clearBuffer();
+      mainMenuActive = false;
+      memorygame_run(&memoryState);
   }
 
   // Cycle through animations with buttons 4 and 6
   if (!gameIsRunning()) {
+    if (!mainMenuActive) {
+      mainMenuActive = true;
+      mainMenu();
+    }
     if (checkButton(PREV_ANIMATION_BUTTON)) {
         currentAnimation = static_cast<Animation>((currentAnimation + NUM_ANIMATIONS - 1) % NUM_ANIMATIONS);
         FastLED.clear();
@@ -138,8 +182,8 @@ void loop() {
       connectfour_update(&connectfourState);
   } else {
       // Handle animations
-    int num = 3;
-    int but[num][2] = {{3, 2}, {3, 3}, {2, 2}};
+    int num = 4;
+    int but[num][2] = {{3, 2}, {3, 3}, {2, 2}, {2, 3}};
     switch (currentAnimation) {
         case RAINBOW_BORDER:
             rainbowBorder(num, but);

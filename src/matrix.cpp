@@ -32,6 +32,17 @@ void setButtonColor(int x, int y, CRGB color) {
     }
 }
 
+void setButtonColorMixed(int x, int y, CRGB color1, CRGB color2) {
+    int button = ButtonMatrix[x][y];
+    for (int i = 0; i < 6; i++) {
+        if (i % 2 == 0) {
+            leds[button * 6 + i] = color1;
+        } else {
+            leds[button * 6 + i] = color2;
+        }
+    }
+}
+
 void rainbowButton(int x, int y) {
     static uint8_t hue_offset = 0;
     int button = ButtonMatrix[x][y];

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/games/memorygame.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1741201360535,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1741201360535,
+            "name": "Commit-0",
+            "content": "#ifndef MEMORYGAME_H\r\n#define MEMORYGAME_H\r\n\r\n#include \"globals.h\"\r\n\r\n// Structure to hold the memory game state.\r\ntypedef struct MemoryGameState {\r\n    int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n    int sequenceLength;\r\n    bool isGameActive;\r\n} MemoryGameState;\r\n\r\n// Runs a complete round of the memory game.\r\nvoid memorygame_run(MemoryGameState* state);\r\n\r\n#endif // MEMORYGAME_H"
+        }
+    ]
+}

@@ -11,6 +11,7 @@ typedef struct {
     int activeY;
     bool isGameActive;
     unsigned long gameEndTime; // Time when the game ended
+    CRGB activeColor;
 } ReactionGameState;
 
 // Function prototypes
