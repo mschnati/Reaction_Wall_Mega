@@ -73,6 +73,7 @@ void reaction_game_set_new_block(ReactionGameState* state) {
     setButtonColor(state->activeX, state->activeY, CRGB::Black);
     
     // Set new random block, different from the current one
+    randomSeed(analogRead(A0));
     int rng = random(36);
     int new_x = rng % BUTTON_COLS;
     int new_y = rng / BUTTON_COLS;

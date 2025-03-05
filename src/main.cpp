@@ -154,6 +154,7 @@ void loop() {
       u8g2.clearBuffer();
       mainMenuActive = false;
       memorygame_run(&memoryState);
+      u8g2.clearBuffer();
   }
 
   // Cycle through animations with buttons 4 and 6
