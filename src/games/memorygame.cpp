@@ -41,6 +41,10 @@ static void waitForButtonPress(int* pressedRow, int* pressedCol) {
 
 // Runs a complete round of the memory game.
 void memorygame_run(MemoryGameState* state) {
+    FastLED.clear();
+    FastLED.show();
+    u8g2.clearBuffer();
+
     // Initialize game state.
     state->sequenceLength = 0;
     state->isGameActive = true;
@@ -50,6 +54,10 @@ void memorygame_run(MemoryGameState* state) {
     // Start by adding the first random square.
     state->sequence[state->sequenceLength][0] = random(BOARD_ROWS);
     state->sequence[state->sequenceLength][1] = random(BOARD_COLS);
+    // avoid broken button
+    if (state->sequence[state->sequenceLength][0] == 1 && state->sequence[state->sequenceLength][1] == 4) {
+        state->sequence[state->sequenceLength][0] = 2;
+    }
     state->sequenceLength++;
 
     while (state->isGameActive) {
@@ -123,6 +131,14 @@ void memorygame_run(MemoryGameState* state) {
         // Player completed the sequence correctly. Add a new random move.
         state->sequence[state->sequenceLength][0] = random(BOARD_ROWS);
         state->sequence[state->sequenceLength][1] = random(BOARD_COLS);
+        // avoid broken button 1, 3
+        if (state->sequence[state->sequenceLength][0] == 1 && state->sequence[state->sequenceLength][1] == 3) {
+            state->sequence[state->sequenceLength][0] = 2;
+        }
+        // avoid broken button 5, 0
+        if (state->sequence[state->sequenceLength][0] == 5 && state->sequence[state->sequenceLength][1] == 0) {
+            state->sequence[state->sequenceLength][1] = 1;
+        }
         state->sequenceLength++;
 
         delay(500);

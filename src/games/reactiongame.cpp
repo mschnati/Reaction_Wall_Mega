@@ -24,12 +24,16 @@ void reaction_game_init(ReactionGameState* state) {
  */
 void reaction_game_start(ReactionGameState* state) {
     // Set game duration until 5 pressed. 8 and 2 to increase/decrease duration
+    FastLED.clear();
     setButtonColor(4, 2, CRGB::Green);
     setButtonColor(2, 2, CRGB::Red);
-    rainbowButton(3, 2);
+    setButtonColor(3, 2, CRGB::Blue);
     FastLED.show();
     u8g2.clearBuffer();
     updateDisplay("Reaction Game", 1, 10);
+    updateDisplay("Green: +1s", 3, 1);
+    updateDisplay("Red: -1s", 4, 1);
+    updateDisplay("Blue: Accept", 5, 1);
 
     while (!checkButton(ACCEPT_BUTTON)) {
         if (checkButton(UP_BUTTON)) {

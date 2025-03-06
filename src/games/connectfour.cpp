@@ -19,9 +19,10 @@ void connectfour_init(ConnectFourState* state) {
     state->isActive = false;
     state->lastUpdate = 0;
     state->hasWinner = false;
-    // Optionally clear the display:
+    
     FastLED.clear();
     FastLED.show();
+    u8g2.clearBuffer();
     
     updateDisplay("Connect Four", 0, 10);
     updateDisplay("Red's turn", 3, 8);

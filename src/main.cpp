@@ -60,8 +60,6 @@ void setup() {
   }
 
   reaction_game_init(&gameState);
-  tictactoe_init(&tictactoeState);
-  connectfour_init(&connectfourState);
 
   for (int i = 0; i < NUM_LEDS; i++) {
     leds[i] = CRGB::Black;
@@ -115,49 +113,40 @@ void mainMenu() {
   delay(10);
   updateDisplay("Blue:   Connect Four", 4, 8);
   delay(10);
-  updateDisplay("Pink:   Memory", 5, 8);
+  updateDisplay("Lila:   Memory", 5, 8);
 }
 
+/*
+ Das ist die Hauptschleife des Programms. Hier wird überprüft, ob ein Spiel gestartet werden soll und welches Spiel gestartet werden soll.
+ Falls kein Spiel gestartet wird, wird die Animation aktualisiert. Das Hauptmenü wird angezeigt, wenn kein Spiel läuft.
+ */
 void loop() {
-  // Start reaction game when middle button is pressed
+  // Start reaction game when its button is pressed
   if (!gameIsRunning() && checkButton(PLAY_REACTION_BUTTON)) {
-      FastLED.clear();
-      FastLED.show();
-      u8g2.clearBuffer();
       mainMenuActive = false;
-      updateDisplay("Reaction Game", 0, 1);
       reaction_game_start(&gameState);
   }
 
-  // Start tictactoe game when top middle button is pressed
+  // Start tictactoe game when its button is pressed
   if (!gameIsRunning() && checkButton(PLAY_TICTACTOE_BUTTON)) {
-      FastLED.clear();
-      FastLED.show();
-      u8g2.clearBuffer();
       mainMenuActive = false;
       tictactoe_start(&tictactoeState);
   }
 
-  // Start connect four game when top right button is pressed
+  // Start connect four game when its button is pressed
   if (!gameIsRunning() && checkButton(PLAY_CONNECTFOUR_BUTTON)) {
-      FastLED.clear();
-      FastLED.show();
-      u8g2.clearBuffer();
       mainMenuActive = false;
       connectfour_start(&connectfourState);
   }
 
-  // Start memory sequence game when bottom right button is pressed
+  // Start memory sequence game when its button is pressed
   if (!gameIsRunning() && checkButton(PLAY_MEMORY_BUTTON)) {
-      FastLED.clear();
-      FastLED.show();
-      u8g2.clearBuffer();
       mainMenuActive = false;
       memorygame_run(&memoryState);
       u8g2.clearBuffer();
   }
 
-  // Cycle through animations with buttons 4 and 6
+  // Check buttons to cycle through animations
   if (!gameIsRunning()) {
     if (!mainMenuActive) {
       mainMenuActive = true;

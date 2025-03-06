@@ -114,6 +114,10 @@ void tictactoe_init(TicTacToeState* state) {
     state->isActive = false;
     state->lastUpdate = 0;
 
+    FastLED.clear();
+    FastLED.show();
+    u8g2.clearBuffer();
+
     updateDisplay("TicTacToe", 0, 10);
     updateDisplay("Red's turn", 3, 8);
 }
