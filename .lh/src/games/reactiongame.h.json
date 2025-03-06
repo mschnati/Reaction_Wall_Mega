@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1740859680092,
@@ -12,6 +12,18 @@
                 {
                     "date": 1741194596143,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,26 @@\n+#ifndef REACTIONGAME_H\r\n+#define REACTIONGAME_H\r\n+\r\n+#include \"globals.h\"\r\n+#include <stdbool.h>\r\n+\r\n+typedef struct {\r\n+    int score;\r\n+    unsigned long gameStartTime;\r\n+    int activeX;\r\n+    int activeY;\r\n+    bool isGameActive;\r\n+    unsigned long gameEndTime; // Time when the game ended\r\n+    \r\n+} ReactionGameState;\r\n+\r\n+// Function prototypes\r\n+void reaction_game_init(ReactionGameState* state);\r\n+void reaction_game_start(ReactionGameState* state);\r\n+void reaction_game_update(ReactionGameState* state);\r\n+bool reaction_game_is_running(ReactionGameState* state);\r\n+int reaction_game_get_score(ReactionGameState* state);\r\n+void reaction_game_set_new_block(ReactionGameState* state);\r\n+\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741291405298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,27 @@\n+#ifndef REACTIONGAME_H\r\n+#define REACTIONGAME_H\r\n+\r\n+#include \"globals.h\"\r\n+#include <stdbool.h>\r\n+\r\n+typedef struct {\r\n+    int score;\r\n+    unsigned long gameStartTime;\r\n+    int activeX;\r\n+    int activeY;\r\n+    bool isGameActive;\r\n+    unsigned long gameEndTime; // Time when the game ended\r\n+    CRGB activeColor;\r\n+} ReactionGameState;\r\n+\r\n+// Function prototypes\r\n+void reaction_game_init(ReactionGameState* state);\r\n+void reaction_game_start(ReactionGameState* state);\r\n+void reaction_game_update(ReactionGameState* state);\r\n+bool reaction_game_is_running(ReactionGameState* state);\r\n+int reaction_game_get_score(ReactionGameState* state);\r\n+void reaction_game_set_new_block(ReactionGameState* state);\r\n+\r\n+\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741291417498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,8 @@\n void reaction_game_update(ReactionGameState* state);\r\n bool reaction_game_is_running(ReactionGameState* state);\r\n int reaction_game_get_score(ReactionGameState* state);\r\n void reaction_game_set_new_block(ReactionGameState* state);\r\n-void \r\n+void loadTop5Scores\r\n \r\n \r\n #endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741291433005,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,5 +20,9 @@\n void reaction_game_update(ReactionGameState* state);\r\n bool reaction_game_is_running(ReactionGameState* state);\r\n int reaction_game_get_score(ReactionGameState* state);\r\n void reaction_game_set_new_block(ReactionGameState* state);\r\n-void loadTop5ReactionScores();\r\n\\ No newline at end of file\n+void loadTop5ReactionScores();\r\n+void loadTop5ReactionScores()\r\n+\r\n+\r\n+#endif\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1740859680092,

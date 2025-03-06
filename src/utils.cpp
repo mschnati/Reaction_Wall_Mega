@@ -4,6 +4,8 @@ static bool lastButtonStates[NUM_BUTTONS] = {LOW};
 static bool buttonStates[NUM_BUTTONS] = {LOW};
 static unsigned long lastDebounceTime[NUM_BUTTONS] = {0};
 
+int color = -1;
+
 /**
  * Check if a button has been pressed.
  * @param buttonNum The button number to check.
@@ -87,7 +89,12 @@ bool anyButtonPressed() {
  * @return A random CRGB color.
  */
 CRGB randomColor() {
-    return colors[random(NUM_COLORS)];
+    if (color == -1) {
+        color = random(NUM_COLORS);
+    } else {
+        color = (color + 1) % NUM_COLORS;
+    }
+    return colors[color];
 }
 
 #ifdef TEST

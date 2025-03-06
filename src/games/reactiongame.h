@@ -21,6 +21,8 @@ void reaction_game_update(ReactionGameState* state);
 bool reaction_game_is_running(ReactionGameState* state);
 int reaction_game_get_score(ReactionGameState* state);
 void reaction_game_set_new_block(ReactionGameState* state);
+void loadTop5ReactionScores();
+void saveTop5ReactionScores();
 
 
 #endif

@@ -1,10 +1,15 @@
 #include "reactiongame.h"
 #include "matrix.h"
+#include <EEPROM.h>
+
+#define EEPROM_TOP5_REACT_ADDR 10 // Address in EEPROM to store top 5 reaction scores
 
 unsigned int GAME_DURATION = 15000;  // 20 seconds
 #define ACCEPT_BUTTON 22
 #define UP_BUTTON 27
 #define DOWN_BUTTON 15
+
+int top5ReactionScores[5] = {0};
 
 /**
  * Initialize the reaction game state
@@ -16,6 +21,7 @@ void reaction_game_init(ReactionGameState* state) {
     state->activeX = 0;
     state->activeY = 0;
     state->isGameActive = false;
+    loadTop5ReactionScores();
 }
 
 /**
@@ -63,6 +69,8 @@ void reaction_game_start(ReactionGameState* state) {
     state->gameStartTime = millis();
     state->isGameActive = true;
 
+    randomSeed(analogRead(A0));
+
     state->activeColor = randomColor();
     
     reaction_game_set_new_block(state);
@@ -77,7 +85,6 @@ void reaction_game_set_new_block(ReactionGameState* state) {
     setButtonColor(state->activeX, state->activeY, CRGB::Black);
     
     // Set new random block, different from the current one
-    randomSeed(analogRead(A0));
     int rng = random(36);
     int new_x = rng % BUTTON_COLS;
     int new_y = rng / BUTTON_COLS;
@@ -126,14 +133,41 @@ void reaction_game_update(ReactionGameState* state) {
         }
         updateDisplay(message, 3, 1);
         
-        while (millis() - state->gameEndTime < 5000) {
+        while (millis() - state->gameEndTime < 3000) {
             // Wait for 5 seconds before returning to main menu
         }
         FastLED.clear();
         FastLED.show();
         
         u8g2.clearBuffer();
-        
+
+        // Check if the score is in the top 5. Only if played at default duration
+        if (GAME_DURATION == 15000) {
+            for (int i = 0; i < 5; i++) {
+                if (state->score > top5ReactionScores[i]) {
+                    for (int j = 4; j > i; j--) {
+                        top5ReactionScores[j] = top5ReactionScores[j - 1];
+                    }
+                    top5ReactionScores[i] = state->score;
+                    break;
+                }
+            }
+            saveTop5ReactionScores();
+            
+            // Print top 5 scores and indicate if the score is new
+            updateDisplay("Top 5 Scores", 0, 1);
+            for (int i = 0; i < 5; i++) {
+                char scoreMsg[16];
+                if (top5ReactionScores[i] == state->score) {
+                    sprintf(scoreMsg, "NEW!: %d", top5ReactionScores[i]);
+                } else {
+                    sprintf(scoreMsg, "%d: %d", i + 1, top5ReactionScores[i]);
+                }
+                updateDisplay(scoreMsg, i + 1, 1);
+            }
+            delay(4000);
+        }
+
         return;
     }
 
@@ -163,4 +197,22 @@ bool reaction_game_is_running(ReactionGameState* state) {
  */
 int reaction_game_get_score(ReactionGameState* state) {
     return state->score;
+}
+
+void loadTop5ReactionScores() {
+    for (int i = 0; i < 5; i++) {
+        int val = EEPROM.read(EEPROM_TOP5_REACT_ADDR + i);
+        // If EEPROM isn't initialized, it will return 255. Set default score to 0.
+        if (val == 255) {
+            top5ReactionScores[i] = 0;
+        } else {
+            top5ReactionScores[i] = val;
+        }
+    }
+}
+
+void saveTop5ReactionScores() {
+    for (int i = 0; i < 5; i++) {
+        EEPROM.write(EEPROM_TOP5_REACT_ADDR + i, top5ReactionScores[i]);
+    }
 }

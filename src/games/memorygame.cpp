@@ -61,10 +61,12 @@ void memorygame_run(MemoryGameState* state) {
     state->sequence[state->sequenceLength][0] = random(BOARD_ROWS);
     state->sequence[state->sequenceLength][1] = random(BOARD_COLS);
     // avoid broken button
-    if (state->sequence[state->sequenceLength][0] == 1 && state->sequence[state->sequenceLength][1] == 4) {
+    if (state->sequence[state->sequenceLength][0] == 1 && state->sequence[state->sequenceLength][1] == 3) {
         state->sequence[state->sequenceLength][0] = 2;
     }
     state->sequenceLength++;
+
+    delay(1000);
 
     while (state->isGameActive) {
         // Display the current sequence.
@@ -100,44 +102,30 @@ void memorygame_run(MemoryGameState* state) {
                     delay(200);
                 }
                 state->isGameActive = false;
-                delay(2000);
-                bool highScorePrinted = false;
+                delay(1000);
+
                 for (int i = 0; i < 5; i++) {
                     if ((state->sequenceLength - 1) > top5Scores[i]) {
                         for (int j = 4; j > i; j--) {
                             top5Scores[j] = top5Scores[j - 1];
                         }
                         top5Scores[i] = state->sequenceLength - 1;
-                        u8g2.clearBuffer();
-                        updateDisplay("New High Score!", 0, 8);
-                        // Display the top 5 scores.
-                        bool newH = false;
-                        for (int j = 0; j < 5; j++) {
-                            if (top5Scores[j] == (state->sequenceLength - 1) && newH == false) {
-                                newH = true;
-                                char scoreMsg[16];
-                                sprintf(scoreMsg, "NEW!: %d", top5Scores[j]);
-                                updateDisplay(scoreMsg, j + 1, 8);
-                            } else {
-                                char scoreMsg[16];
-                                sprintf(scoreMsg, "%d: %d", j + 1, top5Scores[j]);
-                                updateDisplay(scoreMsg, j + 1, 8);
-                            }
-                        }
-                        delay(5000);
-                        highScorePrinted = true;
                         break;
                     }
                 }
-                if (!highScorePrinted) {
-                    // Display the top 5 scores.
-                    for (int i = 0; i < 5; i++) {
-                        char scoreMsg[16];
+                // Display the top 5 scores.
+                u8g2.clearBuffer();
+                updateDisplay("Top 5 Scores", 0, 8);
+                for (int i = 0; i < 5; i++) {
+                    char scoreMsg[16];
+                    if (top5Scores[i] == (state->sequenceLength - 1)) {
+                        sprintf(scoreMsg, "NEW!: %d", top5Scores[i]);
+                    } else {
                         sprintf(scoreMsg, "%d: %d", i + 1, top5Scores[i]);
-                        updateDisplay(scoreMsg, i + 1, 8);
                     }
-                    delay(5000);
+                    updateDisplay(scoreMsg, i + 1, 8);
                 }
+                delay(4000);
 
                 // save the top 5 scores to EEPROM.
                 saveTop5Scores(top5Scores);
