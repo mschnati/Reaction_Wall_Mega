@@ -2,6 +2,9 @@
 #include "memorygame.h"
 #include <stdlib.h>
 #include <string.h>
+#include <EEPROM.h>
+
+#define EEPROM_TOP5_ADDR 0 // Address in EEPROM to store top 5 scores
 
 #define BOARD_ROWS BUTTON_ROWS
 #define BOARD_COLS BUTTON_COLS
@@ -41,6 +44,9 @@ static void waitForButtonPress(int* pressedRow, int* pressedCol) {
 
 // Runs a complete round of the memory game.
 void memorygame_run(MemoryGameState* state) {
+    // Load the top 5 scores from EEPROM.
+    loadTop5Scores(top5Scores);
+
     FastLED.clear();
     FastLED.show();
     u8g2.clearBuffer();
@@ -95,18 +101,20 @@ void memorygame_run(MemoryGameState* state) {
                 }
                 state->isGameActive = false;
                 delay(2000);
-
+                bool highScorePrinted = false;
                 for (int i = 0; i < 5; i++) {
-                    if (state->sequenceLength > top5Scores[i]) {
+                    if ((state->sequenceLength - 1) > top5Scores[i]) {
                         for (int j = 4; j > i; j--) {
                             top5Scores[j] = top5Scores[j - 1];
                         }
-                        top5Scores[i] = state->sequenceLength;
+                        top5Scores[i] = state->sequenceLength - 1;
                         u8g2.clearBuffer();
                         updateDisplay("New High Score!", 0, 8);
                         // Display the top 5 scores.
+                        bool newH = false;
                         for (int j = 0; j < 5; j++) {
-                            if (top5Scores[j] == state->sequenceLength) {
+                            if (top5Scores[j] == (state->sequenceLength - 1) && newH == false) {
+                                newH = true;
                                 char scoreMsg[16];
                                 sprintf(scoreMsg, "NEW!: %d", top5Scores[j]);
                                 updateDisplay(scoreMsg, j + 1, 8);
@@ -117,9 +125,22 @@ void memorygame_run(MemoryGameState* state) {
                             }
                         }
                         delay(5000);
+                        highScorePrinted = true;
                         break;
                     }
                 }
+                if (!highScorePrinted) {
+                    // Display the top 5 scores.
+                    for (int i = 0; i < 5; i++) {
+                        char scoreMsg[16];
+                        sprintf(scoreMsg, "%d: %d", i + 1, top5Scores[i]);
+                        updateDisplay(scoreMsg, i + 1, 8);
+                    }
+                    delay(5000);
+                }
+
+                // save the top 5 scores to EEPROM.
+                saveTop5Scores(top5Scores);
 
                 return;
             } else {
@@ -142,5 +163,25 @@ void memorygame_run(MemoryGameState* state) {
         state->sequenceLength++;
 
         delay(500);
+    }
+}
+
+// Load the top 5 scores from EEPROM.
+void loadTop5Scores(int top5Scores[5]) {
+    for (int i = 0; i < 5; i++) {
+        int val = EEPROM.read(EEPROM_TOP5_ADDR + i);
+        // If EEPROM isn't initialized, it will return 255. Set default score to 0.
+        if (val == 255) {
+            top5Scores[i] = 0;
+        } else {
+            top5Scores[i] = val;
+        }
+    }
+}
+
+// Save the top 5 scores to EEPROM.
+void saveTop5Scores(int top5Scores[5]) {
+    for (int i = 0; i < 5; i++) {
+        EEPROM.write(EEPROM_TOP5_ADDR + i, top5Scores[i]);
     }
 }

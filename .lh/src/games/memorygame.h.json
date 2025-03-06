@@ -3,11 +3,27 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1741201360535,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1741289500726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,18 @@\n+#ifndef MEMORYGAME_H\r\n+#define MEMORYGAME_H\r\n+\r\n+#include \"globals.h\"\r\n+\r\n+#include <EEPROM.h>\r\n+\r\n+// Structure to hold the memory game state.\r\n+typedef struct MemoryGameState {\r\n+    int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n+    int sequenceLength;\r\n+    bool isGameActive;\r\n+} MemoryGameState;\r\n+\r\n+// Runs a complete round of the memory game.\r\n+void memorygame_run(MemoryGameState* state);\r\n+\r\n+#endif // MEMORYGAME_H\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741289516685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,20 @@\n+#ifndef MEMORYGAME_H\r\n+#define MEMORYGAME_H\r\n+\r\n+#include \"globals.h\"\r\n+\r\n+#include <EEPROM.h>\r\n+\r\n+#define EEPROM_TOP5_ADDR 0\r\n+\r\n+// Structure to hold the memory game state.\r\n+typedef struct MemoryGameState {\r\n+    int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n+    int sequenceLength;\r\n+    bool isGameActive;\r\n+} MemoryGameState;\r\n+\r\n+// Runs a complete round of the memory game.\r\n+void memorygame_run(MemoryGameState* state);\r\n+\r\n+#endif // MEMORYGAME_H\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741289531375,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,6 +15,8 @@\n } MemoryGameState;\r\n \r\n // Runs a complete round of the memory game.\r\n void memorygame_run(MemoryGameState* state);\r\n+void loadTop5Scores(int top5Scores[5]);\r\n+void saveTop5Scores(int top5Scores[5]);\r\n \r\n #endif // MEMORYGAME_H\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1741289723235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,8 @@\n #define MEMORYGAME_H\r\n \r\n #include \"globals.h\"\r\n \r\n-#include <EEPROM.h>\r\n-\r\n-#define EEPROM_TOP5_ADDR 0\r\n-\r\n // Structure to hold the memory game state.\r\n typedef struct MemoryGameState {\r\n     int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n     int sequenceLength;\r\n@@ -18,39 +14,5 @@\n void memorygame_run(MemoryGameState* state);\r\n void loadTop5Scores(int top5Scores[5]);\r\n void saveTop5Scores(int top5Scores[5]);\r\n \r\n-#endif // MEMORYGAME_H\n-#ifndef MEMORYGAME_H\r\n-#define MEMORYGAME_H\r\n-\r\n-#include \"globals.h\"\r\n-\r\n-#include <EEPROM.h>\r\n-\r\n-// Structure to hold the memory game state.\r\n-typedef struct MemoryGameState {\r\n-    int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n-    int sequenceLength;\r\n-    bool isGameActive;\r\n-} MemoryGameState;\r\n-\r\n-// Runs a complete round of the memory game.\r\n-void memorygame_run(MemoryGameState* state);\r\n-\r\n-#endif // MEMORYGAME_H\n-#ifndef MEMORYGAME_H\r\n-#define MEMORYGAME_H\r\n-\r\n-#include \"globals.h\"\r\n-\r\n-// Structure to hold the memory game state.\r\n-typedef struct MemoryGameState {\r\n-    int sequence[64][2];   // Stores up to 64 moves. Each entry is a {row, col} pair.\r\n-    int sequenceLength;\r\n-    bool isGameActive;\r\n-} MemoryGameState;\r\n-\r\n-// Runs a complete round of the memory game.\r\n-void memorygame_run(MemoryGameState* state);\r\n-\r\n #endif // MEMORYGAME_H\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1741201360535,

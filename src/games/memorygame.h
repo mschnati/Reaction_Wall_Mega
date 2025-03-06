@@ -12,5 +12,7 @@ typedef struct MemoryGameState {
 
 // Runs a complete round of the memory game.
 void memorygame_run(MemoryGameState* state);
+void loadTop5Scores(int top5Scores[5]);
+void saveTop5Scores(int top5Scores[5]);
 
 #endif // MEMORYGAME_H

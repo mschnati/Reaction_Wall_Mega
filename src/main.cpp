@@ -113,7 +113,7 @@ void mainMenu() {
   delay(10);
   updateDisplay("Blue:   Connect Four", 4, 8);
   delay(10);
-  updateDisplay("Lila:   Memory", 5, 8);
+  updateDisplay("Lila:    Memory", 5, 8);
 }
 
 /*
