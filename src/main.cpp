@@ -166,8 +166,6 @@ void loop() {
   // Update games
   if (tictactoe_is_running(&tictactoeState)) {
       tictactoe_update(&tictactoeState);
-  } else if (reaction_game_is_running(&gameState)) {
-      reaction_game_update(&gameState);
   } else if (connectfour_is_running(&connectfourState)) {
       connectfour_update(&connectfourState);
   } else {

@@ -56,6 +56,12 @@ void reaction_game_start(ReactionGameState* state) {
             delay(100);
             setButtonColor(2, 2, CRGB::Red);
             FastLED.show();
+        } else if (checkButton(31)) {
+            // reset high scores
+            for (int i = 0; i < 5; i++) {
+                top5ReactionScores[i] = 0;
+            }
+            saveTop5ReactionScores();
         }
         // format string with duration
         updateDisplay("Reaction Game", 1, 10);
@@ -74,6 +80,11 @@ void reaction_game_start(ReactionGameState* state) {
     state->activeColor = randomColor();
     
     reaction_game_set_new_block(state);
+
+    // update while the game is active
+    while (state->isGameActive) {
+        reaction_game_update(state);
+    }
 }
 
 /**
@@ -166,6 +177,7 @@ void reaction_game_update(ReactionGameState* state) {
                 updateDisplay(scoreMsg, i + 1, 1);
             }
             delay(4000);
+            u8g2.clearBuffer();
         }
 
         return;

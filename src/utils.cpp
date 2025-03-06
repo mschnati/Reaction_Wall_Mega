@@ -89,6 +89,7 @@ bool anyButtonPressed() {
  * @return A random CRGB color.
  */
 CRGB randomColor() {
+    randomSeed(analogRead(A0));
     if (color == -1) {
         color = random(NUM_COLORS);
     } else {

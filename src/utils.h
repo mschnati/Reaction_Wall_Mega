@@ -14,8 +14,7 @@ const int buttons[] = {
 
 const CRGB colors[] = {
     CRGB::Red, CRGB::Green, CRGB::Blue, CRGB::Purple, CRGB::Yellow, CRGB::Purple, CRGB::Orange, CRGB::White, CRGB::Teal, CRGB::Cyan, 
-    CRGB::Magenta, CRGB::Lime, CRGB::Turquoise, CRGB::Gold, CRGB::Violet, CRGB::Azure, CRGB::MistyRose, CRGB::Indigo, CRGB::Lavender, 
-    CRGB::Maroon, CRGB::Olive, CRGB::Coral, CRGB::Salmon, CRGB::Khaki, CRGB::Plum, CRGB::Crimson, CRGB::MintCream, CRGB::Beige, CRGB::Ivory
+    CRGB::Magenta, CRGB::Lime, CRGB::Turquoise, CRGB::Olive
 };
 
 const int NUM_COLORS = sizeof(colors) / sizeof(colors[0]);
