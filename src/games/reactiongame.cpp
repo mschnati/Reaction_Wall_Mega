@@ -66,7 +66,7 @@ void reaction_game_start(ReactionGameState* state) {
         // format string with duration
         updateDisplay("Reaction Game", 1, 10);
         char message[16];
-        sprintf(message, "Duration: %d", GAME_DURATION / 1000);
+        sprintf(message, "Duration: %ds", GAME_DURATION / 1000);
         updateDisplay(message, 3, 1);
     }
     FastLED.clear();
@@ -167,12 +167,14 @@ void reaction_game_update(ReactionGameState* state) {
             
             // Print top 5 scores and indicate if the score is new
             updateDisplay("Top 5 Scores", 0, 1);
+            bool newScore = false;
             for (int i = 0; i < 5; i++) {
                 char scoreMsg[16];
-                if (top5ReactionScores[i] == state->score) {
-                    sprintf(scoreMsg, "NEW!: %d", top5ReactionScores[i]);
+                if ((top5ReactionScores[i] == state->score) && !newScore) {
+                    sprintf(scoreMsg, "NEW!    %d", top5ReactionScores[i]);
+                    newScore = true;
                 } else {
-                    sprintf(scoreMsg, "%d: %d", i + 1, top5ReactionScores[i]);
+                    sprintf(scoreMsg, "%d.  %d", i + 1, top5ReactionScores[i]);
                 }
                 updateDisplay(scoreMsg, i + 1, 1);
             }

@@ -116,12 +116,14 @@ void memorygame_run(MemoryGameState* state) {
                 // Display the top 5 scores.
                 u8g2.clearBuffer();
                 updateDisplay("Top 5 Scores", 0, 8);
+                bool newScore = false;
                 for (int i = 0; i < 5; i++) {
                     char scoreMsg[16];
-                    if (top5Scores[i] == (state->sequenceLength - 1)) {
-                        sprintf(scoreMsg, "NEW!: %d", top5Scores[i]);
+                    if ((top5Scores[i] == (state->sequenceLength - 1)) && !newScore) {
+                        sprintf(scoreMsg, "NEW!    %d", top5Scores[i]);
+                        newScore = true;
                     } else {
-                        sprintf(scoreMsg, "%d: %d", i + 1, top5Scores[i]);
+                        sprintf(scoreMsg, "%d.  %d", i + 1, top5Scores[i]);
                     }
                     updateDisplay(scoreMsg, i + 1, 8);
                 }
