@@ -51,16 +51,3 @@ void rainbowButton(int x, int y) {
     }
     hue_offset += 1;
 }
-
-/**
- * Set the color of a 4x4 block on the LED matrix.
- * @param x The x coordinate of the block (0-3).
- * @param y The y coordinate of the block (0-3).
- */
-void setBlockColor_4(int x, int y, CRGB color) {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            leds[ButtonMatrix[x * 4 + i][y * 4 + j]] = color;
-        }
-    }
-}

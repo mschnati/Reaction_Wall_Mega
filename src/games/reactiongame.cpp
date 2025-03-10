@@ -67,7 +67,7 @@ void reaction_game_start(ReactionGameState* state) {
         updateDisplay("Reaction Game", 1, 10);
         char message[16];
         sprintf(message, "Duration: %ds", GAME_DURATION / 1000);
-        updateDisplay(message, 3, 1);
+        updateDisplay(message, 2, 1);
     }
     FastLED.clear();
 
